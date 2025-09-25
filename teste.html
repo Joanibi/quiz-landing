@@ -27,27 +27,44 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywHybP57dijlkTPP7FpmuYirWWk7OXB_V8OdnfFAQqEttUWj73HF313YQVb7-NwH3F2A/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzL56xXNuf1S-9GeV1Dn_7WPMTC1HYaIQKhbrisNToSc8N7X5xmpbeknmCUxHhEG05uvw/exec";
 
-    function enviarResposta(botao) {
+     async function enviarResposta(botao) {
       const pergunta = botao.parentElement.getAttribute("data-pergunta");
       const resposta = botao.innerText;
     
+      // Cria o objeto FormData com os dados
       const formData = new FormData();
       formData.append("pergunta", pergunta);
       formData.append("resposta", resposta);
       formData.append("origem", window.location.href);
-    
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        body: formData
-      })
-      .then(() => console.log("Enviado!"))
-      .catch(err => console.error("Erro:", err));
+      
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          // O fetch configura automaticamente o 'Content-Type: multipart/form-data' 
+          // quando o body é um FormData. Não defina o Content-Type manualmente!
+          body: formData 
+        });
+        
+        // Se a requisição foi bem-sucedida, leia o JSON retornado pelo Apps Script
+        const data = await response.json();
+        
+        if (data.status === 'sucesso') {
+            console.log("Enviado com Sucesso!");
+            // Se quiser, você pode desabilitar os botões ou mostrar uma mensagem
+        } else {
+            console.error("Erro do Script:", data.mensagem);
+        }
+
+      } catch (err) {
+        console.error("Erro ao conectar ou processar:", err);
+      }
     }
   </script>
 </body>
 </html>
+
 
 
 
