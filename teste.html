@@ -29,26 +29,24 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7AimCkWVIkOztjZFy6QDplFVSLoRyZ7Hnna9MRljLxXPh7ozbynSiCURjiiofHWnlow/exec";
 
-
     function enviarResposta(botao) {
       const pergunta = botao.parentElement.getAttribute("data-pergunta");
       const resposta = botao.innerText;
-
-      fetch(SCRIPT_URL, {
+    
+      fetch("SUA_URL_DO_GOOGLE_SCRIPT", {
         method: "POST",
-        mode: "no-cors", // evita bloqueio CORS
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           pergunta: pergunta,
           resposta: resposta,
           origem: window.location.href
-        }),
-        headers: { "Content-Type": "application/json" }
+        })
       })
-      .then(() => console.log("Enviado para planilha"))
+      .then(res => res.json())
+      .then(data => console.log("Enviado:", data))
       .catch(err => console.error("Erro:", err));
-
-      
     }
   </script>
 </body>
 </html>
+
