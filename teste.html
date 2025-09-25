@@ -18,13 +18,14 @@
     }
 
     .quiz-container {
-      background: rgba(255, 255, 255, 0.15); /* Slightly lighter background */
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 20px;
       padding: 30px 40px;
       width: 100%;
       max-width: 600px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(10px);
+      box-sizing: border-box; /* Ensures padding doesn’t affect size */
     }
 
     h1 {
@@ -59,7 +60,7 @@
     .pergunta p {
       font-size: 1.2rem;
       margin-bottom: 15px;
-      color: #fff; /* Ensures the question text is visible */
+      color: #fff;
       font-weight: 500;
     }
 
@@ -68,7 +69,7 @@
       width: 100%;
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      color: #fff; /* Ensures button text is visible */
+      color: #fff;
       padding: 14px;
       margin-bottom: 15px;
       border-radius: 12px;
@@ -95,7 +96,7 @@
     .footer-text {
       text-align: center;
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.9); /* Lightens footer text for better visibility */
+      color: rgba(255, 255, 255, 0.9);
       margin-top: 20px;
     }
 
@@ -104,6 +105,57 @@
       font-size: 1.2rem;
       color: #fff;
       text-align: center;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .quiz-container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+      }
+
+      .pergunta p {
+        font-size: 1.1rem;
+      }
+
+      .pergunta button {
+        font-size: 1rem;
+        padding: 12px;
+      }
+
+      .footer-text {
+        font-size: 0.8rem;
+        margin-top: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .quiz-container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+
+      .pergunta p {
+        font-size: 1rem;
+      }
+
+      .pergunta button {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+
+      .footer-text {
+        font-size: 0.75rem;
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
@@ -208,4 +260,3 @@
   </script>
 </body>
 </html>
-
