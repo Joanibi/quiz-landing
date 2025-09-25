@@ -38,7 +38,7 @@
       formData.append("resposta", resposta);
       formData.append("origem", window.location.href);
     
-      fetch("SUA_URL_DO_WEB_APP", {
+      fetch(SCRIPT_URL, {
         method: "POST",
         body: formData
       })
@@ -48,6 +48,7 @@
   </script>
 </body>
 </html>
+
 
 
 
