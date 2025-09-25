@@ -1,162 +1,234 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <title>Quiz Fitness</title>
-  <style>
-    /* Fundo degradê */
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #4a00e0, #8e2de2);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+  <meta charset="utf-8">
+  <title>Quiz Fitness</title>
+  <style>
+    /* Fundo degradê */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .quiz-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 30px 40px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .progress {
+      height: 6px;
+      width: 100%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%; /* Inicia em 0% */
+      background: #6c63ff;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .pergunta {
+      margin-bottom: 25px;
+      transition: opacity 0.3s; /* Adiciona transição para suavizar o desaparecimento */
+    }
+
+    .pergunta p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    .pergunta button {
+      display: block;
+      width: 100%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      padding: 12px 20px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      text-align: left;
+    }
+
+    .pergunta button:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .pergunta button:active {
+      transform: translateY(0);
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* CLASSE ESSENCIAL PARA ESCONDER */
+    .oculta {
+        display: none !important;
     }
 
-    .quiz-container {
-      background: rgba(255,255,255,0.05);
-      border-radius: 20px;
-      padding: 30px 40px;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 1.8rem;
-      font-weight: 600;
-    }
-
-    .progress {
-      height: 6px;
-      width: 100%;
-      background: rgba(255,255,255,0.2);
-      border-radius: 3px;
-      margin-bottom: 30px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 40%; /* exemplo de progresso */
-      background: #6c63ff;
-      border-radius: 3px;
-      transition: width 0.3s;
-    }
-
-    .pergunta {
-      margin-bottom: 25px;
-    }
-
-    .pergunta p {
-      font-size: 1.1rem;
-      margin-bottom: 15px;
-    }
-
-    .pergunta button {
-      display: block;
-      width: 100%;
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: #fff;
-      padding: 12px 20px;
-      margin-bottom: 10px;
-      border-radius: 12px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-      text-align: left;
-    }
-
-    .pergunta button:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    .pergunta button:active {
-      transform: translateY(0);
-      background: rgba(255,255,255,0.3);
-    }
-
-    .footer-text {
-      text-align: center;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.7);
-      margin-top: 10px;
-    }
-  </style>
+    .footer-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>Descubra seu estilo fitness!</h1>
+  <div class="quiz-container">
+    <h1>Descubra seu estilo fitness!</h1>
 
-    <div class="progress">
-      <div class="progress-bar"></div>
+    <div class="progress">
+      <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+        <div id="p1" class="pergunta" data-pergunta="Qual seu objetivo principal?">
+      <p>Qual seu objetivo principal?</p>
+      <button onclick="responder(this)" data-resposta="Ganhar massa" data-next="p2">💪 Ganhar massa</button>
+      <button onclick="responder(this)" data-resposta="Perder peso" data-next="p2">⚡ Perder peso</button>
+      <button onclick="responder(this)" data-resposta="Definição" data-next="p2">🏋️ Definição</button>
+    </div>
+
+        <div id="p2" class="pergunta oculta" data-pergunta="Com que frequência treina?">
+      <p>Com que frequência treina?</p>
+      <button onclick="responder(this)" data-resposta="1-2x por semana" data-next="p3">1-2x por semana</button>
+      <button onclick="responder(this)" data-resposta="3-4x por semana" data-next="p3">3-4x por semana</button>
+      <button onclick="responder(this)" data-resposta="5x ou mais" data-next="p3">5x ou mais</button>
+    </div>
+
+        <div id="p3" class="pergunta oculta" data-pergunta="Qual seu tipo de treino preferido?">
+      <p>Qual seu tipo de treino preferido?</p>
+      <button onclick="responder(this)" data-resposta="Musculação" data-next="finalizar">Musculação</button>
+      <button onclick="responder(this)" data-resposta="Cardio/Corrida" data-next="finalizar">Cardio/Corrida</button>
+      <button onclick="responder(this)" data-resposta="Funcional/Cross" data-next="finalizar">Funcional/Cross</button>
+    </div>
+    
+    <div id="loading" class="pergunta oculta">
+        <p style="text-align: center;">🎉 Finalizando seu quiz e preparando seu resultado...</p>
     </div>
 
-    <div class="pergunta" data-pergunta="Qual seu objetivo principal?">
-      <p>Qual seu objetivo principal?</p>
-      <button onclick="enviarResposta(this)">💪 Ganhar massa</button>
-      <button onclick="enviarResposta(this)">⚡ Perder peso</button>
-      <button onclick="enviarResposta(this)">🏋️ Definição</button>
-    </div>
-
-    <div class="pergunta" data-pergunta="Com que frequência treina?">
-      <p>Com que frequência treina?</p>
-      <button onclick="enviarResposta(this)">1-2x por semana</button>
-      <button onclick="enviarResposta(this)">3-4x por semana</button>
-      <button onclick="enviarResposta(this)">5x ou mais</button>
-    </div>
-
-    <div class="footer-text">
-      Responda com honestidade para obter o melhor resultado
-    </div>
-  </div>
+    <div class="footer-text">
+      Responda com honestidade para obter o melhor resultado
+    </div>
+  </div>
 
   <script>
+    // *** CONFIGURAÇÕES ***
+    // 1. SUBSTITUA PELO SEU URL DE IMPLANTAÇÃO DO GOOGLE APPS SCRIPT
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzL56xXNuf1S-9GeV1Dn_7WPMTC1HYaIQKhbrisNToSc8N7X5xmpbeknmCUxHhEG05uvw/exec";
+    // 2. A constante REDIRECT_URL não é mais necessária!
 
-     async function enviarResposta(botao) {
-      const pergunta = botao.parentElement.getAttribute("data-pergunta");
-      const resposta = botao.innerText;
+    // Referências aos elementos do DOM
+    const perguntasDivs = document.querySelectorAll('.pergunta:not(#loading)');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.querySelector('.progress');
+    const loadingDiv = document.getElementById('loading');
     
-      // Cria o objeto FormData com os dados
-      const formData = new FormData();
-      formData.append("pergunta", pergunta);
-      formData.append("resposta", resposta);
-      formData.append("origem", window.location.href);
-      
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: "POST",
-          // O fetch configura automaticamente o 'Content-Type: multipart/form-data' 
-          // quando o body é um FormData. Não defina o Content-Type manualmente!
-          body: formData 
-        });
-        
-        // Se a requisição foi bem-sucedida, leia o JSON retornado pelo Apps Script
-        const data = await response.json();
-        
-        if (data.status === 'sucesso') {
-            console.log("Enviado com Sucesso!");
-            window.location.href = "https://www.youtube.com/";
-            // Se quiser, você pode desabilitar os botões ou mostrar uma mensagem
-        } else {
-            console.error("Erro do Script:", data.mensagem);
-        }
+    const totalPerguntas = perguntasDivs.length;
+    let perguntasRespondidas = 0;
 
-      } catch (err) {
-        console.error("Erro ao conectar ou processar:", err);
-      }
+    // Inicializa a barra de progresso (0%)
+    progressBar.style.width = '0%';
+
+    /**
+     * Envia os dados para a planilha em segundo plano.
+     */
+    function enviarDadosEmSegundoPlano(pergunta, resposta) {
+        const formData = new FormData();
+        formData.append("pergunta", pergunta);
+        // Limpa o texto da resposta (remove emojis e espaços extras)
+        formData.append("resposta", resposta.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|\s/g, '').trim()); 
+        formData.append("origem", window.location.href);
+
+        fetch(SCRIPT_URL, {
+            method: "POST",
+            body: formData 
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status !== 'sucesso') {
+                console.warn(`[Apps Script Erro] Resposta falhou ao salvar: ${pergunta} -> ${data.mensagem}`);
+            } else {
+                console.log(`[Apps Script Sucesso] Resposta salva: ${pergunta}`);
+            }
+        })
+        .catch(err => {
+            console.error(`[ERRO GRAVE] Falha no envio para a planilha: ${pergunta}`, err);
+        });
     }
-  </script>
+
+    /**
+     * Função chamada ao clicar em um botão de resposta.
+     */
+    function responder(botao) {
+        const perguntaDiv = botao.closest('.pergunta');
+        const perguntaTexto = perguntaDiv.getAttribute("data-pergunta");
+        const respostaTexto = botao.innerText;
+        const proximaId = botao.getAttribute("data-next"); 
+
+        // 1. INICIA O ENVIO DE DADOS (em segundo plano)
+        enviarDadosEmSegundoPlano(perguntaTexto, respostaTexto);
+
+        // 2. LÓGICA DE PROGRESSO
+        perguntasRespondidas++;
+        const progressoPercentual = (perguntasRespondidas / totalPerguntas) * 100;
+        progressBar.style.width = progressoPercentual + '%';
+
+        // 3. LÓGICA DE TRANSIÇÃO INSTANTÂNEA
+        
+        // Esconde a pergunta atual imediatamente
+        perguntaDiv.classList.add('oculta'); 
+
+        if (proximaId === 'finalizar') {
+            // LÓGICA DE FINALIZAÇÃO (Sem Redirecionamento)
+            
+            // 3.1 Oculta a barra de progresso e o footer
+            progressContainer.classList.add('oculta');
+            document.querySelector('.footer-text').classList.add('oculta');
+
+            // 3.2 Mostra a mensagem final
+            loadingDiv.classList.remove('oculta');
+            
+        } else {
+            // Se houver próxima pergunta, mostra a próxima
+            const proximaDiv = document.getElementById(proximaId);
+            if (proximaDiv) {
+                proximaDiv.classList.remove('oculta');
+            } else {
+                // Caso o data-next esteja configurado incorretamente
+                console.error(`Erro na sequência: Próximo ID '${proximaId}' não encontrado.`);
+                loadingDiv.innerText = "Erro ao carregar a próxima pergunta. O quiz foi finalizado.";
+                loadingDiv.classList.remove('oculta');
+            }
+        }
+    }
+</script>
 </body>
 </html>
+
 
 
 
