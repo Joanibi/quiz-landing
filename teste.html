@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .pergunta { margin-bottom: 20px; }
+    button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Descubra seu estilo fitness!</h1>
+
+  <div class="pergunta" data-pergunta="Qual seu objetivo principal?">
+    <p>Qual seu objetivo principal?</p>
+    <button onclick="enviarResposta(this)">Ganhar massa</button>
+    <button onclick="enviarResposta(this)">Perder peso</button>
+    <button onclick="enviarResposta(this)">Definição</button>
+  </div>
+
+  <div class="pergunta" data-pergunta="Com que frequência treina?">
+    <p>Com que frequência treina?</p>
+    <button onclick="enviarResposta(this)">1-2x por semana</button>
+    <button onclick="enviarResposta(this)">3-4x por semana</button>
+    <button onclick="enviarResposta(this)">5x ou mais</button>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7AimCkWVIkOztjZFy6QDplFVSLoRyZ7Hnna9MRljLxXPh7ozbynSiCURjiiofHWnlow/exec";
+
+
+    function enviarResposta(botao) {
+      const pergunta = botao.parentElement.getAttribute("data-pergunta");
+      const resposta = botao.innerText;
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors", // evita bloqueio CORS
+        body: JSON.stringify({
+          pergunta: pergunta,
+          resposta: resposta,
+          origem: window.location.href
+        }),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(() => console.log("Enviado para planilha"))
+      .catch(err => console.error("Erro:", err));
+
+      
+    }
+  </script>
+</body>
+</html>
