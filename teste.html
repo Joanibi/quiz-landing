@@ -27,27 +27,28 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbOjU5YJKNRQQMYiAscSjAcu9a3NLEmS6XGfqW16CwqAr-JS_J-ySQ9T2F-bKtA25g/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywHybP57dijlkTPP7FpmuYirWWk7OXB_V8OdnfFAQqEttUWj73HF313YQVb7-NwH3F2A/exec";
 
     function enviarResposta(botao) {
-        const pergunta = botao.parentElement.getAttribute("data-pergunta");
-        const resposta = botao.innerText;
-      
-        const formData = new FormData();
-        formData.append("pergunta", pergunta);
-        formData.append("resposta", resposta);
-        formData.append("origem", window.location.href);
-      
-        fetch(SCRIPT_URL, {
-          method: "POST",
-          body: formData
-        })
-        .then(() => console.log("Enviado!"))
-        .catch(err => console.error("Erro:", err));
-      }
+      const pergunta = botao.parentElement.getAttribute("data-pergunta");
+      const resposta = botao.innerText;
+    
+      const formData = new FormData();
+      formData.append("pergunta", pergunta);
+      formData.append("resposta", resposta);
+      formData.append("origem", window.location.href);
+    
+      fetch("SUA_URL_DO_WEB_APP", {
+        method: "POST",
+        body: formData
+      })
+      .then(() => console.log("Enviado!"))
+      .catch(err => console.error("Erro:", err));
+    }
   </script>
 </body>
 </html>
+
 
 
 
