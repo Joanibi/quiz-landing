@@ -2,28 +2,120 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8">
-  <title>Quiz</title>
+  <title>Quiz Fitness</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .pergunta { margin-bottom: 20px; }
-    button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    /* Fundo degradê */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .quiz-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 30px 40px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .progress {
+      height: 6px;
+      width: 100%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 40%; /* exemplo de progresso */
+      background: #6c63ff;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .pergunta {
+      margin-bottom: 25px;
+    }
+
+    .pergunta p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    .pergunta button {
+      display: block;
+      width: 100%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      padding: 12px 20px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      text-align: left;
+    }
+
+    .pergunta button:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .pergunta button:active {
+      transform: translateY(0);
+      background: rgba(255,255,255,0.3);
+    }
+
+    .footer-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-  <h1>Descubra seu estilo fitness!</h1>
+  <div class="quiz-container">
+    <h1>Descubra seu estilo fitness!</h1>
 
-  <div class="pergunta" data-pergunta="Qual seu objetivo principal?">
-    <p>Qual seu objetivo principal?</p>
-    <button onclick="enviarResposta(this)">Ganhar massa</button>
-    <button onclick="enviarResposta(this)">Perder peso</button>
-    <button onclick="enviarResposta(this)">Definição</button>
-  </div>
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
 
-  <div class="pergunta" data-pergunta="Com que frequência treina?">
-    <p>Com que frequência treina?</p>
-    <button onclick="enviarResposta(this)">1-2x por semana</button>
-    <button onclick="enviarResposta(this)">3-4x por semana</button>
-    <button onclick="enviarResposta(this)">5x ou mais</button>
+    <div class="pergunta" data-pergunta="Qual seu objetivo principal?">
+      <p>Qual seu objetivo principal?</p>
+      <button onclick="enviarResposta(this)">💪 Ganhar massa</button>
+      <button onclick="enviarResposta(this)">⚡ Perder peso</button>
+      <button onclick="enviarResposta(this)">🏋️ Definição</button>
+    </div>
+
+    <div class="pergunta" data-pergunta="Com que frequência treina?">
+      <p>Com que frequência treina?</p>
+      <button onclick="enviarResposta(this)">1-2x por semana</button>
+      <button onclick="enviarResposta(this)">3-4x por semana</button>
+      <button onclick="enviarResposta(this)">5x ou mais</button>
+    </div>
+
+    <div class="footer-text">
+      Responda com honestidade para obter o melhor resultado
+    </div>
   </div>
 
   <script>
@@ -64,6 +156,7 @@
   </script>
 </body>
 </html>
+
 
 
 
