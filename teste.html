@@ -30,24 +30,24 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7AimCkWVIkOztjZFy6QDplFVSLoRyZ7Hnna9MRljLxXPh7ozbynSiCURjiiofHWnlow/exec";
 
     function enviarResposta(botao) {
-      const pergunta = botao.parentElement.getAttribute("data-pergunta");
-      const resposta = botao.innerText;
-    
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          pergunta: pergunta,
-          resposta: resposta,
-          origem: window.location.href
+        const pergunta = botao.parentElement.getAttribute("data-pergunta");
+        const resposta = botao.innerText;
+      
+        const formData = new FormData();
+        formData.append("pergunta", pergunta);
+        formData.append("resposta", resposta);
+        formData.append("origem", window.location.href);
+      
+        fetch(SCRIPT_URL, {
+          method: "POST",
+          body: formData
         })
-      })
-      .then(res => res.json())
-      .then(data => console.log("Enviado:", data))
-      .catch(err => console.error("Erro:", err));
-    }
+        .then(() => console.log("Enviado!"))
+        .catch(err => console.error("Erro:", err));
+      }
   </script>
 </body>
 </html>
+
 
 
